@@ -1,6 +1,7 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsFillPersonLinesFill } from "react-icons/bs";
+import  {HiArrowNarrowRight} from "react-icons/hi"
 const Home = () => {
   return (
     <div name="home" className="w-full h-screen border-b-0 border-black">
@@ -19,13 +20,10 @@ const Home = () => {
           full-stack web applications.
         </p>
         <div>
-          <button className="overflow-hidden relative w-32 p-2 h-12 bg-black text-white border-none rounded-md text-xl font-bold cursor-pointer  z-10 group">
-            Read More
-            <span className="absolute w-36 h-32 -top-8 -left-2 bg-white rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-left"></span>
-            <span className="absolute w-36 h-32 -top-8 -left-2 bg-pink-600 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-left"></span>
-            <span className="absolute w-36 h-32 -top-8 -left-2 bg-pink-600 rotate-12 transform scale-x-0 group-hover:scale-x-50 transition-transform group-hover:duration-1000 duration-500 origin-left"></span>
-            <span className="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-2.5 left-6 z-10">
-              Thanks
+        <button className='text-white group border-2 px-6 py-3 my-2 flex items-center'>
+            View Work
+            <span className='group-hover:rotate-90 duration-300'>
+              <HiArrowNarrowRight className='ml-3 ' />
             </span>
           </button>
         </div>
@@ -34,7 +32,7 @@ const Home = () => {
         <div className="w-full mt-10">
           <ul className="flex justify-center gap-5 text-gray-300">
             <li>
-              <a href="/">
+              <a href="https://www.linkedin.com/in/thomas-chacko-7003a9283/">
                 <FaLinkedin
                   size={40}
                   className="hover:scale-150 duration-300 hover:text-white hover:border-b-2 "
@@ -42,7 +40,7 @@ const Home = () => {
               </a>
             </li>
             <li className="">
-              <a href="/">
+              <a href="https://github.com/thomas-chacko/">
                 <FaGithub
                   size={40}
                   className="hover:scale-150 duration-300 hover:text-white hover:border-b-2"
