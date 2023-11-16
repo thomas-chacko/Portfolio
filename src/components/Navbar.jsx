@@ -4,6 +4,8 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { Link } from "react-scroll";
+import { HiBars3CenterLeft } from "react-icons/hi2";
+import { AiOutlineClose } from "react-icons/ai";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -48,7 +50,7 @@ const Navbar = () => {
 
       {/* Hamburger */}
       <div onClick={handleClick} className="md:hidden z-10">
-        {!nav ? <FaBars size={30} /> : <FaTimes size={30} />}
+        {!nav ? <HiBars3CenterLeft size={40} /> : <AiOutlineClose size={40} />}
       </div>
 
       {/* Mobile menu */}
