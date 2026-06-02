@@ -38,8 +38,8 @@ A unique personal portfolio website designed with a Windows OS-inspired interfac
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/thomas-chacko/Portfolio-Windows-Theme
-cd portfolio-window-theme
+git clone https://github.com/thomas-chacko/Portfolio
+cd Portfolio
 ```
 
 2. Install dependencies:
