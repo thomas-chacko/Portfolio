@@ -47,6 +47,52 @@
   animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+/* ===== Window Minimize / Restore / Maximize Animations ===== */
+
+/* Minimize: shrink down toward the taskbar with fade */
+@keyframes windowMinimize {
+  0% {
+    opacity: 1;
+    transform: translateZ(0) scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateZ(0) scale(0.4) translateY(60vh);
+  }
+}
+
+/* Restore from minimize: grow up from taskbar */
+@keyframes windowRestore {
+  0% {
+    opacity: 0;
+    transform: translateZ(0) scale(0.4) translateY(60vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0) scale(1) translateY(0);
+  }
+}
+
+.window-minimize {
+  animation: windowMinimize 300ms cubic-bezier(0.4, 0, 1, 1) forwards;
+  pointer-events: none;
+}
+
+.window-restore {
+  animation: windowRestore 300ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+/* Maximize / Restore-down: smooth geometric transition */
+.window-maximize-transition {
+  transition:
+    left 350ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    top 350ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    width 350ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    height 350ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-radius 350ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* REMOVE ALL SCROLLBARS - Windows 11 Style */
 ::-webkit-scrollbar {
   display: none;

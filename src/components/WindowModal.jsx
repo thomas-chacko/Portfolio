@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import Lenis from 'lenis'
 
+// Animation duration constants (ms)
+const MINIMIZE_DURATION = 300
+const MAXIMIZE_DURATION = 350
+
 const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaximize, onFocus }) => {
   // Calculate initial center position for desktop
   const getInitialPosition = () => {
@@ -19,6 +23,11 @@ const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaxi
   const [previousPosition, setPreviousPosition] = useState(getInitialPosition())
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false)
   const [hasEverBeenDragged, setHasEverBeenDragged] = useState(false)
+  // Animation states
+  const [animState, setAnimState] = useState('idle') // 'idle' | 'minimizing' | 'restoring' | 'maximizing' | 'unmaximizing'
+  const [shouldRender, setShouldRender] = useState(!windowData.isMinimized)
+  const prevMinimizedRef = useRef(windowData.isMinimized)
+  const hasInitAnimatedRef = useRef(false) // tracks whether the initial scaleIn has already played
   const windowRef = useRef(null)
   const scrollRef = useRef(null)
   const lenisRef = useRef(null)
@@ -51,6 +60,34 @@ const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaxi
     return () => window.removeEventListener('resize', handleResize)
   }, [isMaximized, isDragging, isMobileOrTablet])
 
+  // Handle minimize / restore animations
+  useEffect(() => {
+    const wasMinimized = prevMinimizedRef.current
+    const isMinimized = windowData.isMinimized
+    prevMinimizedRef.current = isMinimized
+
+    if (!wasMinimized && isMinimized) {
+      // Minimizing: play shrink animation, then hide
+      setAnimState('minimizing')
+      setShouldRender(true)
+      const timer = setTimeout(() => {
+        setShouldRender(false)
+        setAnimState('idle')
+      }, MINIMIZE_DURATION)
+      return () => clearTimeout(timer)
+    }
+
+    if (wasMinimized && !isMinimized) {
+      // Restoring from minimize: show immediately, play grow animation
+      setShouldRender(true)
+      setAnimState('restoring')
+      const timer = setTimeout(() => {
+        setAnimState('idle')
+      }, MINIMIZE_DURATION)
+      return () => clearTimeout(timer)
+    }
+  }, [windowData.isMinimized])
+
   const handleMouseDown = (e) => {
     if (e.target.closest('.window-controls')) return
     if (isMaximized || isMobileOrTablet) return // Don't allow dragging when maximized or on mobile
@@ -67,13 +104,17 @@ const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaxi
   const handleMaximize = () => {
     if (isMaximized) {
       // Restore to previous size and position
+      setAnimState('unmaximizing')
       setIsMaximized(false)
       setPosition(previousPosition)
+      setTimeout(() => setAnimState('idle'), MAXIMIZE_DURATION)
     } else {
       // Save current position and maximize
       setPreviousPosition(position)
+      setAnimState('maximizing')
       setIsMaximized(true)
       setPosition({ x: 0, y: 0 })
+      setTimeout(() => setAnimState('idle'), MAXIMIZE_DURATION)
     }
   }
 
@@ -158,16 +199,37 @@ const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaxi
     }
   }, [windowData.isMinimized, windowData.id])
 
-  if (windowData.isMinimized) return null
+  if (!shouldRender) return null
+
+  // Determine animation class
+  const getAnimationClass = () => {
+    switch (animState) {
+      case 'minimizing': return 'window-minimize'
+      case 'restoring': return 'window-restore'
+      default: return ''
+    }
+  }
+
+  const isMaximizeAnimating = animState === 'maximizing' || animState === 'unmaximizing'
 
   // Responsive window styling with glassmorphism
   const getWindowClasses = () => {
+    const animClass = getAnimationClass()
+
     if (isMobileOrTablet) {
       return `
         fixed inset-0 glass-dark
         ${isActive ? 'z-50' : 'z-40'}
         flex flex-col
+        ${animClass}
       `
+    }
+
+    // Only show scaleIn on the very first mount, never again
+    const showScaleIn = !hasInitAnimatedRef.current && !hasEverBeenDragged && animState === 'idle' && !animClass
+    if (showScaleIn) {
+      // Mark as played so it never re-triggers
+      hasInitAnimatedRef.current = true
     }
 
     return `
@@ -175,8 +237,9 @@ const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaxi
       ${isActive ? 'z-50 shadow-[0_8px_32px_rgba(0,0,0,0.6)]' : 'z-40 shadow-[0_8px_32px_rgba(0,0,0,0.4)]'}
       ${isDragging ? 'cursor-grabbing' : 'cursor-default'}
       ${isMaximized ? 'rounded-none' : 'rounded-2xl'}
-      ${!hasEverBeenDragged ? 'animate-scaleIn' : ''}
-      transition-shadow duration-300
+      ${showScaleIn ? 'animate-scaleIn' : ''}
+      ${isMaximizeAnimating ? 'window-maximize-transition' : 'transition-shadow duration-300'}
+      ${animClass}
     `
   }
 
@@ -215,9 +278,12 @@ const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaxi
       className={`${getWindowClasses()} flex flex-col`}
       style={{
         ...getWindowStyle(),
-        // Hardware acceleration for smooth dragging
-        transform: 'translateZ(0)',
-        willChange: isDragging ? 'transform' : 'auto'
+        // Only apply hardware-accel transform when NOT running a keyframe animation
+        // (inline transform overrides @keyframes transforms and causes flicker)
+        ...(animState === 'minimizing' || animState === 'restoring'
+          ? { willChange: 'transform, opacity' }
+          : { transform: 'translateZ(0)', willChange: isDragging ? 'transform' : 'auto' }
+        )
       }}
       onClick={onFocus}
     >
