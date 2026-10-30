@@ -23,7 +23,7 @@ const Taskbar = ({ windows, activeWindow, onRestoreWindow }) => {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentTime(new Date())
-        }, 1000)
+        }, 5000)
 
         return () => clearInterval(timer)
     }, [])

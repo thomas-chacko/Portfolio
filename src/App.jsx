@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Desktop from './components/Desktop'
 import Taskbar from './components/Taskbar'
 import WindowModal from './components/WindowModal'
@@ -42,7 +42,20 @@ const App = () => {
     }
   }, [])
 
-  const openWindow = (windowData) => {
+  // Close active window on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && activeWindow) {
+        if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return
+        setWindows(prev => prev.filter(w => w.id !== activeWindow))
+        setActiveWindow(null)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [activeWindow])
+
+  const openWindow = useCallback((windowData) => {
     const newWindow = {
       id: Date.now(),
       ...windowData,
@@ -51,49 +64,49 @@ const App = () => {
     }
     setWindows(prev => [...prev, newWindow])
     setActiveWindow(newWindow.id)
-  }
+  }, [])
 
-  const closeWindow = (windowId) => {
+  const closeWindow = useCallback((windowId) => {
     setWindows(prev => prev.filter(w => w.id !== windowId))
     setActiveWindow(null)
-  }
+  }, [])
 
-  const minimizeWindow = (windowId) => {
+  const minimizeWindow = useCallback((windowId) => {
     setWindows(prev => prev.map(w =>
       w.id === windowId ? { ...w, isMinimized: true } : w
     ))
     setActiveWindow(null)
-  }
+  }, [])
 
-  const maximizeWindow = (windowId) => {
+  const maximizeWindow = useCallback((windowId) => {
     setWindows(prev => prev.map(w =>
       w.id === windowId ? { ...w, isMaximized: !w.isMaximized } : w
     ))
-  }
+  }, [])
 
-  const restoreWindow = (windowId) => {
+  const restoreWindow = useCallback((windowId) => {
     setWindows(prev => prev.map(w =>
       w.id === windowId ? { ...w, isMinimized: false } : w
     ))
     setActiveWindow(windowId)
-  }
+  }, [])
 
-  const focusWindow = (windowId) => {
+  const focusWindow = useCallback((windowId) => {
     setActiveWindow(windowId)
-  }
+  }, [])
 
-  const changeWallpaper = (wallpaperId) => {
+  const changeWallpaper = useCallback((wallpaperId) => {
     setSelectedWallpaper(wallpaperId)
-  }
+  }, [])
 
-  const changeTheme = (themeId) => {
+  const changeTheme = useCallback((themeId) => {
     setSelectedTheme(themeId)
-  }
+  }, [])
 
-  const handleBootComplete = () => {
+  const handleBootComplete = useCallback(() => {
     setIsBooting(false)
     sessionStorage.setItem('hasBooted', 'true')
-  }
+  }, [])
 
   // Get current wallpaper
   const currentWallpaper = wallpapers.find(w => w.id === selectedWallpaper) || wallpapers[0]

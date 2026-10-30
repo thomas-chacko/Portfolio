@@ -20,7 +20,8 @@ import {
     FaCog,
     FaPowerOff,
     FaGitlab,
-    FaCode
+    FaCode,
+    FaTimes
 } from 'react-icons/fa'
 import {
     SiTypescript,
@@ -57,27 +58,40 @@ const StartMenu = ({ isOpen, onClose }) => {
         return () => window.removeEventListener('resize', checkDevice)
     }, [])
 
-    // Lenis smooth scroll for skills section
+    // Close on Escape key
+    useEffect(() => {
+        if (!isOpen) return
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') onClose()
+        }
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [isOpen, onClose])
+
+    // Lenis smooth scroll for skills section with proper RAF cleanup
     useEffect(() => {
         if (!skillsScrollRef.current || !isOpen) return
 
         const lenis = new Lenis({
             wrapper: skillsScrollRef.current,
-            duration: 1.2,
+            duration: 1.0,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smoothWheel: true,
             wheelMultiplier: 1,
-            touchMultiplier: 2,
+            touchMultiplier: 1.5,
         })
+
+        let rafId = null
 
         function raf(time) {
             lenis.raf(time)
-            requestAnimationFrame(raf)
+            rafId = requestAnimationFrame(raf)
         }
 
-        requestAnimationFrame(raf)
+        rafId = requestAnimationFrame(raf)
 
         return () => {
+            if (rafId) cancelAnimationFrame(rafId)
             lenis.destroy()
         }
     }, [isOpen])
@@ -421,15 +435,24 @@ const StartMenu = ({ isOpen, onClose }) => {
 
                 {/* Mobile Layout - Just Skills Section */}
                 {isMobile && (
-                    <div className="w-full bg-gray-800 bg-opacity-90 flex flex-col">
+                    <div className="w-full bg-gray-900/95 backdrop-blur-xl flex flex-col h-full">
                         {/* Header */}
-                        <div className="px-4 py-3 flex items-center border-b border-gray-600">
-                            <div className="flex flex-col space-y-1 mr-3">
-                                <div className="w-4 h-0.5 bg-white"></div>
-                                <div className="w-4 h-0.5 bg-white"></div>
-                                <div className="w-4 h-0.5 bg-white"></div>
+                        <div className="px-4 py-3 flex items-center justify-between border-b border-white/10">
+                            <div className="flex items-center">
+                                <div className="flex flex-col space-y-1 mr-3">
+                                    <div className="w-4 h-0.5 bg-white"></div>
+                                    <div className="w-4 h-0.5 bg-white"></div>
+                                    <div className="w-4 h-0.5 bg-white"></div>
+                                </div>
+                                <span className="text-white text-base font-semibold">My Skills</span>
                             </div>
-                            <span className="text-white text-base font-normal">My Skills</span>
+                            <button
+                                onClick={onClose}
+                                className="w-8 h-8 rounded-lg bg-white/10 hover:bg-red-500/80 flex items-center justify-center text-white transition-colors cursor-pointer"
+                                title="Close"
+                            >
+                                <FaTimes className="text-sm" />
+                            </button>
                         </div>
 
                         {/* Skills List - Mobile Optimized */}

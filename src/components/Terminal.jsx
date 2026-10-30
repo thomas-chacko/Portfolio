@@ -15,6 +15,16 @@ const Terminal = () => {
     const terminalEndRef = useRef(null)
     const inputRef = useRef(null)
 
+    // Auto-focus input on mount
+    useEffect(() => {
+        inputRef.current?.focus()
+    }, [])
+
+    // Auto-scroll to bottom on new commands/output
+    useEffect(() => {
+        terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }, [history])
+
     const commands = {
         help: {
             description: 'Display available commands',

@@ -32,15 +32,17 @@ const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaxi
   const scrollRef = useRef(null)
   const lenisRef = useRef(null)
 
-  useEffect(() => {
-    // Check if device is mobile or tablet
-    const checkDevice = () => {
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-      const isSmallScreen = window.innerWidth < 1024 // lg breakpoint in Tailwind
-      setIsMobileOrTablet(isTouchDevice || isSmallScreen)
+  const rafDragIdRef = useRef(null)
 
-      // Auto-maximize on mobile for better UX
-      if (isTouchDevice || isSmallScreen) {
+  useEffect(() => {
+    // Check if device is mobile or tablet purely based on screen width
+    // (Avoid using maxTouchPoints since all modern Windows laptops have touchscreens)
+    const checkDevice = () => {
+      const isSmallScreen = window.innerWidth < 1024 // lg breakpoint
+      setIsMobileOrTablet(isSmallScreen)
+
+      // Auto-maximize on mobile/tablet for better UX
+      if (isSmallScreen) {
         setIsMaximized(true)
       }
     }
@@ -129,11 +131,15 @@ const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaxi
   const handleMouseMove = useCallback((e) => {
     if (!isDragging) return
 
-    // Use requestAnimationFrame for smooth animation
-    requestAnimationFrame(() => {
+    // Throttle RAF to display refresh rate to prevent frame drops & layout thrashing
+    if (rafDragIdRef.current) {
+      cancelAnimationFrame(rafDragIdRef.current)
+    }
+
+    rafDragIdRef.current = requestAnimationFrame(() => {
       // Calculate modal dimensions
       const modalWidth = window.innerWidth * 0.8  // 80vw
-      const modalHeight = (window.innerHeight * 0.7) + 100  // 70vh + 100px
+      const modalHeight = Math.min((window.innerHeight * 0.7) + 100, window.innerHeight - 60)
 
       // Calculate new position
       const newX = e.clientX - dragOffset.x
@@ -151,6 +157,10 @@ const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaxi
   }, [isDragging, dragOffset])
 
   const handleMouseUp = useCallback(() => {
+    if (rafDragIdRef.current) {
+      cancelAnimationFrame(rafDragIdRef.current)
+      rafDragIdRef.current = null
+    }
     setIsDragging(false)
   }, [])
 
@@ -160,42 +170,47 @@ const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaxi
       document.addEventListener('mouseup', handleMouseUp, { passive: true })
 
       document.body.style.userSelect = 'none'
-      document.body.style.pointerEvents = 'none'
 
       return () => {
         document.removeEventListener('mousemove', handleMouseMove)
         document.removeEventListener('mouseup', handleMouseUp)
         document.body.style.userSelect = ''
-        document.body.style.pointerEvents = ''
+        if (rafDragIdRef.current) {
+          cancelAnimationFrame(rafDragIdRef.current)
+          rafDragIdRef.current = null
+        }
       }
     }
   }, [isDragging, handleMouseMove, handleMouseUp])
 
-  // Initialize Lenis for smooth scrolling
+  // Initialize Lenis for smooth scrolling with proper RAF cleanup
   useEffect(() => {
     if (!scrollRef.current || windowData.isMinimized) return
 
     const lenis = new Lenis({
       wrapper: scrollRef.current,
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      touchMultiplier: 1.5,
       infinite: false,
     })
 
     lenisRef.current = lenis
+    let rafId = null
 
     function raf(time) {
       lenis.raf(time)
-      requestAnimationFrame(raf)
+      rafId = requestAnimationFrame(raf)
     }
 
-    requestAnimationFrame(raf)
+    rafId = requestAnimationFrame(raf)
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId)
       lenis.destroy()
+      lenisRef.current = null
     }
   }, [windowData.isMinimized, windowData.id])
 
@@ -267,7 +282,7 @@ const WindowModal = ({ window: windowData, isActive, onClose, onMinimize, onMaxi
       left: `${position.x}px`,  // Use pixels for proper dragging
       top: `${position.y}px`,   // Use pixels for proper dragging
       width: '80vw',   // 80% of viewport width
-      height: 'calc(70vh + 100px)',  // 70% of viewport height + 100px
+      height: 'min(calc(70vh + 100px), calc(100vh - 64px))',
       minHeight: '400px'
     }
   }
