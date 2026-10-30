@@ -102,7 +102,7 @@ const Taskbar = ({ windows, activeWindow, onRestoreWindow }) => {
             
             <div className="fixed bottom-0 left-0 right-0 h-12 glass-dark flex items-center justify-between px-2 z-50 border-t border-white/10">
                 {/* Left Side - Start Button and Search */}
-                <div className="flex items-center space-x-1 flex-1 min-w-0">
+                <div className="flex items-center gap-0.5 flex-1 min-w-0">
                     {/* Windows Start Button */}
                     <button
                         onClick={() => setIsStartMenuOpen(!isStartMenuOpen)}
@@ -118,7 +118,7 @@ const Taskbar = ({ windows, activeWindow, onRestoreWindow }) => {
                     </button>
 
                     {/* Open Windows */}
-                    <div className="flex items-center space-x-1 overflow-hidden">
+                    <div className="flex items-center gap-0.5 overflow-hidden">
                         {windows.map(window => (
                             <button
                                 key={window.id}
@@ -151,7 +151,7 @@ const Taskbar = ({ windows, activeWindow, onRestoreWindow }) => {
                 </div>
 
                 {/* Right Side - System Tray */}
-                <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
+                <div className="flex items-center gap-0.5 sm:gap-0 flex-shrink-0">
                     {/* Notification Area */}
                     <button 
                         onClick={() => setShowNotifications(!showNotifications)}
@@ -169,7 +169,7 @@ const Taskbar = ({ windows, activeWindow, onRestoreWindow }) => {
                     </button>
 
                     {/* System Icons */}
-                    <div className="flex items-center space-x-1">
+                    <div className="flex items-center gap-0.5">
                         {/* WiFi Icon */}
                         <div className="relative">
                             <button

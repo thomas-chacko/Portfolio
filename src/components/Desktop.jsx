@@ -69,7 +69,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                         {/* Creative System Overview */}
                         <div className="mt-4 lg:mt-6 space-y-6">
                             {/* System Status Dashboard */}
-                            <div className="glass-panel p-5 lg:p-6 rounded-2xl hover-glow">
+                            <div className="glass-panel p-5 lg:p-6 rounded-2xl">
                                 <div className="flex items-center justify-between mb-5">
                                     <h4 className="text-lg lg:text-xl font-bold text-white flex items-center">
                                         <AiOutlineThunderbolt className="text-2xl mr-3 text-blue-400" />
@@ -138,7 +138,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
 
                             {/* System Specifications */}
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                                <div className="glass-panel p-5 rounded-2xl hover-glow">
+                                <div className="glass-panel p-5 rounded-2xl">
                                     <h5 className="font-semibold text-white mb-4 flex items-center">
                                         <FaDesktop className="text-xl mr-2 text-blue-400" />
                                         Hardware Specs
@@ -163,7 +163,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                                     </div>
                                 </div>
 
-                                <div className="glass-panel p-5 rounded-2xl hover-glow">
+                                <div className="glass-panel p-5 rounded-2xl">
                                     <h5 className="font-semibold text-white mb-4 flex items-center">
                                         <MdSettings className="text-xl mr-2 text-purple-400" />
                                         System Info
@@ -192,7 +192,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                             {/* Portfolio Drives & Tools */}
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                 {/* Portfolio Drives */}
-                                <div className="glass-panel p-5 rounded-2xl hover-glow">
+                                <div className="glass-panel p-5 rounded-2xl">
                                     <h5 className="font-semibold text-white mb-4 flex items-center">
                                         <MdStorage className="text-xl mr-2 text-cyan-400" />
                                         Portfolio Drives
@@ -243,7 +243,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                                 </div>
 
                                 {/* Developer Tools */}
-                                <div className="glass-panel p-5 rounded-2xl hover-glow">
+                                <div className="glass-panel p-5 rounded-2xl">
                                     <h5 className="font-semibold text-white mb-4 flex items-center">
                                         <FaTools className="text-xl mr-2 text-orange-400" />
                                         Developer Tools
@@ -293,7 +293,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                             </div>
 
                             {/* Recent Activity */}
-                            <div className="glass-panel p-5 rounded-2xl hover-glow">
+                            <div className="glass-panel p-5 rounded-2xl">
                                 <h5 className="font-semibold text-white mb-4 flex items-center">
                                     <FaChartLine className="text-xl mr-2 text-green-400" />
                                     Recent Portfolio Activity
@@ -355,7 +355,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                 content: (
                     <div className="p-4 lg:p-6">
                         {/* Hero Section */}
-                        <div className="relative glass-panel rounded-2xl p-6 lg:p-8 mb-6 overflow-hidden hover-glow">
+                        <div className="relative glass-panel rounded-2xl p-6 lg:p-8 mb-6 overflow-hidden">
                             <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                             <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-start gap-6">
                                 <div className="relative">
@@ -404,19 +404,19 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
 
                         {/* Stats & Quick Info */}
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                            <div className="glass-panel p-4 rounded-2xl border border-white/10 text-center hover-glow">
+                            <div className="glass-panel p-4 rounded-2xl border border-white/10 text-center">
                                 <div className="text-2xl lg:text-3xl font-bold text-blue-400 mb-1">1.9+</div>
                                 <div className="text-xs lg:text-sm text-white/70">Years Experience</div>
                             </div>
-                            <div className="glass-panel p-4 rounded-2xl border border-white/10 text-center hover-glow">
+                            <div className="glass-panel p-4 rounded-2xl border border-white/10 text-center">
                                 <div className="text-2xl lg:text-3xl font-bold text-green-400 mb-1">20+</div>
                                 <div className="text-xs lg:text-sm text-white/70">Projects Completed</div>
                             </div>
-                            <div className="glass-panel p-4 rounded-2xl border border-white/10 text-center hover-glow">
+                            <div className="glass-panel p-4 rounded-2xl border border-white/10 text-center">
                                 <div className="text-2xl lg:text-3xl font-bold text-purple-400 mb-1">10+</div>
                                 <div className="text-xs lg:text-sm text-white/70">Happy Clients</div>
                             </div>
-                            <div className="glass-panel p-4 rounded-2xl border border-white/10 text-center hover-glow">
+                            <div className="glass-panel p-4 rounded-2xl border border-white/10 text-center">
                                 <div className="text-2xl lg:text-3xl font-bold text-yellow-400 mb-1">20+</div>
                                 <div className="text-xs lg:text-sm text-white/70">Technologies</div>
                             </div>
@@ -425,7 +425,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                         {/* About & Skills */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                             {/* About Me */}
-                            <div className="glass-panel p-6 rounded-2xl border border-white/10 hover-glow">
+                            <div className="glass-panel p-6 rounded-2xl border border-white/10">
                                 <h3 className="text-xl font-bold text-white mb-4 flex items-center">
                                     <FaRocket className="text-2xl mr-3 text-blue-400" />
                                     About Me
@@ -439,7 +439,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                             </div>
 
                             {/* Core Skills */}
-                            <div className="glass-panel p-6 rounded-2xl border border-white/10 hover-glow">
+                            <div className="glass-panel p-6 rounded-2xl border border-white/10">
                                 <h3 className="text-xl font-bold text-white mb-4 flex items-center">
                                     <HiLightningBolt className="text-2xl mr-3 text-yellow-400" />
                                     Core Skills
@@ -486,7 +486,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                         </div>
 
                         {/* Services & Specializations */}
-                        <div className="glass-panel p-6 rounded-2xl border border-white/10 mb-6 hover-glow">
+                        <div className="glass-panel p-6 rounded-2xl border border-white/10 mb-6">
                             <h3 className="text-xl font-bold text-white mb-6 flex items-center">
                                 <FaProjectDiagram className="text-2xl mr-3 text-purple-400" />
                                 What I Do Best
@@ -531,7 +531,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                         </div>
 
                         {/* Contact & Social */}
-                        <div className="glass-panel p-6 rounded-2xl border border-white/10 hover-glow">
+                        <div className="glass-panel p-6 rounded-2xl border border-white/10">
                             <h3 className="text-xl font-bold text-white mb-6 flex items-center">
                                 <FaPhone className="text-2xl mr-3 text-green-400" />
                                 Let's Connect
@@ -625,7 +625,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                 content: (
                     <div className="p-4 lg:p-6">
                         {/* Header Section */}
-                        <div className="glass-panel rounded-2xl p-6 mb-6 text-white hover-glow">
+                        <div className="glass-panel rounded-2xl p-6 mb-6 text-white">
                             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                                 <div className="mb-4 lg:mb-0">
                                     <h1 className="text-2xl lg:text-3xl font-bold mb-2">Thomas Chacko</h1>
@@ -669,7 +669,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                         </div>
 
                         {/* Summary Section */}
-                        <div className="glass-panel border border-white/10 rounded-2xl p-6 mb-6 hover-glow">
+                        <div className="glass-panel border border-white/10 rounded-2xl p-6 mb-6">
                             <h3 className="text-xl font-bold text-white mb-4 flex items-center">
                                 <FaUser className="mr-3 text-blue-400" />
                                 Professional Summary
@@ -683,7 +683,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                         </div>
 
                         {/* Experience Section */}
-                        <div className="glass-panel border border-white/10 rounded-2xl p-6 mb-6 hover-glow">
+                        <div className="glass-panel border border-white/10 rounded-2xl p-6 mb-6">
                             <h3 className="text-xl font-bold text-white mb-6 flex items-center">
                                 <FaBriefcase className="mr-3 text-green-400" />
                                 Professional Experience
@@ -711,7 +711,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                         </div>
 
                         {/* Projects Section */}
-                        <div className="glass-panel border border-white/10 rounded-2xl p-6 mb-6 hover-glow">
+                        <div className="glass-panel border border-white/10 rounded-2xl p-6 mb-6 ">
                             <h3 className="text-xl font-bold text-white mb-6 flex items-center">
                                 <FaCode className="mr-3 text-purple-400" />
                                 Featured Projects
@@ -752,7 +752,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                         {/* Education & Skills */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             {/* Education */}
-                            <div className="glass-panel border border-white/10 rounded-2xl p-6 hover-glow">
+                            <div className="glass-panel border border-white/10 rounded-2xl p-6 ">
                                 <h3 className="text-xl font-bold text-white mb-4 flex items-center">
                                     <FaGraduationCap className="mr-3 text-yellow-400" />
                                     Education
@@ -772,7 +772,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                             </div>
 
                             {/* Skills */}
-                            <div className="glass-panel border border-white/10 rounded-2xl p-6 hover-glow">
+                            <div className="glass-panel border border-white/10 rounded-2xl p-6 ">
                                 <h3 className="text-xl font-bold text-white mb-4 flex items-center">
                                     <FaTools className="mr-3 text-orange-400" />
                                     Technical Skills
@@ -849,7 +849,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                         <h3 className="text-lg lg:text-xl font-semibold mb-6 text-white">Personalization Settings</h3>
                         <div className="space-y-6">
                             {/* Wallpaper Customization */}
-                            <div className="glass-panel p-4 lg:p-6 rounded-2xl border border-white/10 hover-glow">
+                            <div className="glass-panel p-4 lg:p-6 rounded-2xl border border-white/10 ">
                                 <div className="flex items-center mb-4">
                                     <h4 className="font-semibold text-base lg:text-lg text-white">Wallpaper</h4>
                                 </div>
@@ -893,7 +893,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                             </div>
 
                             {/* System Info */}
-                            <div className="glass-panel p-3 lg:p-4 rounded-2xl border border-white/10 hover-glow">
+                            <div className="glass-panel p-3 lg:p-4 rounded-2xl border border-white/10 ">
                                 <div className="flex items-center mb-3">
                                     <MdSettings className="text-xl lg:text-2xl mr-3 text-white/70" />
                                     <h4 className="font-semibold text-sm lg:text-base text-white">System Information</h4>
@@ -915,7 +915,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                             </div>
 
                             {/* Tips */}
-                            <div className="glass-panel border border-white/10 rounded-2xl p-4 hover-glow">
+                            <div className="glass-panel border border-white/10 rounded-2xl p-4 ">
                                 <div className="flex items-start">
                                     <FaLightbulb className="text-xl mr-3 text-white/70" />
                                     <div>
