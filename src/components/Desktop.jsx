@@ -964,13 +964,21 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
 
     return (
         <div className="absolute inset-0 z-10 w-full h-full overflow-hidden">
-            {/* Desktop Icons Container - Vertical Column Layout */}
+            {/* Desktop Icons Container - Dynamic Vertical Column Layout
+                Uses CSS grid with auto-fill so row count adapts to viewport height.
+                align-content: space-evenly ensures equal spacing top/between/bottom.
+                Icons flow column-first (top→bottom, then next column). */}
             <div
-                className="grid grid-rows-[repeat(auto-fill,95px)] grid-flow-col auto-cols-[90px] gap-x-4 gap-y-2 p-3 pt-4 content-start"
-                style={{ height: 'calc(100vh - 48px)' }}
+                className="grid grid-flow-col gap-x-3 p-4"
+                style={{
+                    height: 'calc(100vh - 48px)',
+                    gridTemplateRows: 'repeat(auto-fill, minmax(72px, 88px))',
+                    gridAutoColumns: '80px',
+                    alignContent: 'space-evenly',
+                }}
             >
                 {desktopIcons.map((icon, index) => (
-                    <div key={icon.id} className="w-[90px] h-[95px]">
+                    <div key={icon.id} className="w-[80px] flex items-center justify-center">
                         <DesktopIcon
                             icon={icon}
                             onDoubleClick={() => onOpenWindow(icon.content)}
