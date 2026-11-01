@@ -2,6 +2,9 @@ import { useState } from 'react'
 import TicTacToe from './games/TicTacToe'
 import MemoryGame from './games/MemoryGame'
 import NumberGuessing from './games/NumberGuessing'
+import RockPaperScissors from './games/RockPaperScissors'
+import SnakeGame from './games/SnakeGame'
+import SimonSays from './games/SimonSays'
 import {
   FaGamepad,
   FaArrowLeft,
@@ -9,11 +12,10 @@ import {
   FaBrain,
   FaBullseye,
   FaPlay,
-  FaTrophy,
-  FaBolt,
-  FaPalette,
-  FaMobile
+  FaHandRock,
+  FaAppleAlt
 } from 'react-icons/fa'
+import { GiSnake } from 'react-icons/gi'
 
 const GameCenter = () => {
   const [selectedGame, setSelectedGame] = useState(null)
@@ -22,29 +24,50 @@ const GameCenter = () => {
     {
       id: 'tic-tac-toe',
       name: 'Tic Tac Toe',
-      description: 'Classic 3x3 grid strategy game for two players',
+      description: 'Classic 3x3 strategy game',
       icon: FaTh,
-      bgColor: 'bg-blue-600',
-      hoverColor: 'hover:bg-blue-700',
+      gradient: 'from-blue-500 to-blue-600',
       component: TicTacToe
     },
     {
       id: 'memory-game',
       name: 'Memory Game',
-      description: 'Test your memory by matching card pairs',
+      description: 'Match card pairs',
       icon: FaBrain,
-      bgColor: 'bg-purple-600',
-      hoverColor: 'hover:bg-purple-700',
+      gradient: 'from-purple-500 to-purple-600',
       component: MemoryGame
     },
     {
       id: 'number-guessing',
-      name: 'Number Guessing',
-      description: 'Guess the secret number between 1 and 100',
+      name: 'Number Guess',
+      description: 'Guess 1-100',
       icon: FaBullseye,
-      bgColor: 'bg-green-600',
-      hoverColor: 'hover:bg-green-700',
+      gradient: 'from-green-500 to-green-600',
       component: NumberGuessing
+    },
+    {
+      id: 'rock-paper-scissors',
+      name: 'Rock Paper Scissors',
+      description: 'Beat the computer',
+      icon: FaHandRock,
+      gradient: 'from-orange-500 to-orange-600',
+      component: RockPaperScissors
+    },
+    {
+      id: 'snake',
+      name: 'Snake Game',
+      description: 'Classic arcade snake',
+      icon: GiSnake,
+      gradient: 'from-green-500 to-emerald-600',
+      component: SnakeGame
+    },
+    {
+      id: 'simon-says',
+      name: 'Simon Says',
+      description: 'Color memory challenge',
+      icon: FaAppleAlt,
+      gradient: 'from-pink-500 to-rose-600',
+      component: SimonSays
     }
   ]
 
@@ -65,15 +88,15 @@ const GameCenter = () => {
         <div className="flex items-center mb-6">
           <button
             onClick={handleBackToMenu}
-            className="bg-gray-600 cursor-pointer hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center mr-4"
+            className="glass-panel cursor-pointer hover:bg-white/10 text-white px-4 py-2 rounded-xl transition-all flex items-center mr-4 border border-white/10"
           >
             <FaArrowLeft className="mr-2" />
-            Back to Games
+            Back
           </button>
           <h2 className="text-xl lg:text-2xl font-bold text-white">{game.name}</h2>
         </div>
 
-        <div className="bg-gray-700 bg-opacity-50 rounded-lg border border-gray-600">
+        <div className="glass-panel rounded-2xl border border-white/10">
           <GameComponent />
         </div>
       </div>
@@ -83,136 +106,151 @@ const GameCenter = () => {
   return (
     <div className="p-4 lg:p-6">
       {/* Header */}
-      <div className="flex items-center mb-6 pb-4 border-b border-gray-600">
-        <FaGamepad className="text-2xl text-blue-400 mr-3" />
-        <div>
-          <h3 className="text-xl lg:text-2xl font-bold text-white">Game Center</h3>
-          <p className="text-sm text-gray-400">Choose a game to play</p>
+      <div className="glass-panel p-6 rounded-2xl mb-6 border border-white/10">
+        <div className="flex items-center">
+          <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
+            <FaGamepad className="text-white text-2xl" />
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold text-white">Game Center</h3>
+            <p className="text-sm text-white/60">Choose your game and have fun!</p>
+          </div>
         </div>
       </div>
 
       {/* Games Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         {games.map((game) => {
           const IconComponent = game.icon
           return (
             <div
               key={game.id}
-              className="bg-gray-700 bg-opacity-50 border border-gray-600 rounded-lg p-6 hover:bg-gray-600 hover:bg-opacity-50 transition-all duration-200"
+              className="glass-panel rounded-2xl p-6 border border-white/10 transition-all"
             >
-              <div className="flex items-start mb-4">
-                <div className={`${game.bgColor} p-3 rounded-lg mr-4`}>
-                  <IconComponent className="text-white text-xl" />
-                </div>
-                <div className="flex-1">
-                  <h4 className="text-lg font-semibold text-white mb-1">{game.name}</h4>
-                  <p className="text-sm text-gray-300 leading-relaxed">{game.description}</p>
-                </div>
+              <div className={`w-16 h-16 bg-gradient-to-br ${game.gradient} rounded-2xl flex items-center justify-center mb-4 shadow-lg`}>
+                <IconComponent className="text-white text-2xl" />
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-400 uppercase tracking-wide">Interactive Game</span>
-                <button
-                  onClick={() => handleGameSelect(game.id)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center cursor-pointer"
-                >
-                  <FaPlay className="mr-2 text-xs" />
-                  Play Now
-                </button>
-              </div>
+              <h4 className="text-lg font-semibold text-white mb-2">{game.name}</h4>
+              <p className="text-sm text-white/60 mb-4">{game.description}</p>
+              <button
+                onClick={() => handleGameSelect(game.id)}
+                className="w-full bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center justify-center cursor-pointer border border-white/20"
+              >
+                <FaPlay className="mr-2 text-xs" />
+                Play Now
+              </button>
             </div>
           )
         })}
       </div>
 
-      {/* More Games Coming Soon Section */}
-      <div className="bg-gradient-to-r from-gray-700 to-gray-800 bg-opacity-50 border border-gray-600 rounded-lg p-6 mb-8">
-        <div className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="bg-purple-600 p-4 rounded-full">
-              <FaGamepad className="text-white text-2xl" />
-            </div>
+      {/* Upcoming Games */}
+      <div className="glass-panel p-6 rounded-2xl mb-6 border border-white/10">
+        <h4 className="text-xl font-bold text-white mb-4 flex items-center">
+          <span className="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center mr-3">
+            🎮
+          </span>
+          Coming Soon
+        </h4>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-white/5 border border-white/10 border-dashed rounded-xl p-4 text-center">
+            <div className="text-4xl mb-3">🎯</div>
+            <h5 className="font-semibold text-white mb-1">Whack-a-Mole</h5>
+            <p className="text-xs text-white/60 mb-3">Quick reflexes game</p>
+            <span className="inline-block bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-xs border border-yellow-500/30">
+              In Progress
+            </span>
           </div>
-          <h4 className="text-xl font-bold text-white mb-2">More Games Coming Soon!</h4>
-          <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-            We're working on exciting new games to add to the collection. Stay tuned for more interactive experiences!
-          </p>
-
-          {/* Preview Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-600 bg-opacity-30 border border-gray-500 border-dashed rounded-lg p-4">
-              <div className="text-3xl mb-2 opacity-50">🐍</div>
-              <h5 className="font-medium text-gray-400 mb-1">Snake Game</h5>
-              <p className="text-xs text-gray-500">Classic arcade snake game</p>
-              <div className="mt-3">
-                <span className="bg-yellow-600 bg-opacity-20 text-yellow-400 px-2 py-1 rounded text-xs">
-                  In Development
-                </span>
-              </div>
-            </div>
-
-            <div className="bg-gray-600 bg-opacity-30 border border-gray-500 border-dashed rounded-lg p-4">
-              <div className="text-3xl mb-2 opacity-50">🧩</div>
-              <h5 className="font-medium text-gray-400 mb-1">Puzzle Solver</h5>
-              <p className="text-xs text-gray-500">Interactive sliding puzzle</p>
-              <div className="mt-3">
-                <span className="bg-orange-600 bg-opacity-20 text-orange-400 px-2 py-1 rounded text-xs">
-                  Planning
-                </span>
-              </div>
-            </div>
-
-            <div className="bg-gray-600 bg-opacity-30 border border-gray-500 border-dashed rounded-lg p-4">
-              <div className="text-3xl mb-2 opacity-50">🎲</div>
-              <h5 className="font-medium text-gray-400 mb-1">Dice Roller</h5>
-              <p className="text-xs text-gray-500">Virtual dice for board games</p>
-              <div className="mt-3">
-                <span className="bg-blue-600 bg-opacity-20 text-blue-400 px-2 py-1 rounded text-xs">
-                  Coming Soon
-                </span>
-              </div>
-            </div>
+          <div className="bg-white/5 border border-white/10 border-dashed rounded-xl p-4 text-center">
+            <div className="text-4xl mb-3">🧩</div>
+            <h5 className="font-semibold text-white mb-1">2048 Puzzle</h5>
+            <p className="text-xs text-white/60 mb-3">Slide & merge tiles</p>
+            <span className="inline-block bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-xs border border-blue-500/30">
+              Planned
+            </span>
           </div>
-
-          <div className="mt-6">
-            <button className="bg-gray-600 text-gray-300 px-6 py-2 rounded font-medium cursor-not-allowed opacity-50">
-              More Games Coming Soon
-            </button>
+          <div className="bg-white/5 border border-white/10 border-dashed rounded-xl p-4 text-center">
+            <div className="text-4xl mb-3">🎲</div>
+            <h5 className="font-semibold text-white mb-1">Dice Roller</h5>
+            <p className="text-xs text-white/60 mb-3">Virtual dice game</p>
+            <span className="inline-block bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-xs border border-purple-500/30">
+              Planned
+            </span>
+          </div>
+          <div className="bg-white/5 border border-white/10 border-dashed rounded-xl p-4 text-center">
+            <div className="text-4xl mb-3">🎰</div>
+            <h5 className="font-semibold text-white mb-1">Slot Machine</h5>
+            <p className="text-xs text-white/60 mb-3">Try your luck!</p>
+            <span className="inline-block bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs border border-green-500/30">
+              Idea
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Info Section */}
-      <div className="bg-gray-700 bg-opacity-30 border border-gray-600 rounded-lg p-6">
-        <div className="flex items-center mb-4">
-          <FaTrophy className="text-xl text-yellow-400 mr-3" />
-          <h4 className="text-lg font-semibold text-white">Game Features</h4>
+      {/* Game Stats */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="glass-panel p-6 rounded-2xl border border-white/10">
+          <h4 className="text-lg font-bold text-white mb-4 flex items-center">
+            <span className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mr-3">
+              🏆
+            </span>
+            Features
+          </h4>
+          <div className="space-y-3">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 border border-blue-500/30">
+                <span className="text-sm">⚡</span>
+              </div>
+              <div>
+                <h5 className="text-white font-medium text-sm">Optimized Performance</h5>
+                <p className="text-white/60 text-xs">Smooth 60fps gameplay on all devices</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0 border border-green-500/30">
+                <span className="text-sm">📱</span>
+              </div>
+              <div>
+                <h5 className="text-white font-medium text-sm">Mobile Responsive</h5>
+                <p className="text-white/60 text-xs">Play anywhere on any device</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0 border border-purple-500/30">
+                <span className="text-sm">🎨</span>
+              </div>
+              <div>
+                <h5 className="text-white font-medium text-sm">Modern Design</h5>
+                <p className="text-white/60 text-xs">Clean glassmorphism UI</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="flex items-start">
-            <div className="bg-orange-600 p-2 rounded mr-3 flex-shrink-0">
-              <FaBolt className="text-white text-sm" />
+
+        <div className="glass-panel p-6 rounded-2xl border border-white/10">
+          <h4 className="text-lg font-bold text-white mb-4 flex items-center">
+            <span className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center mr-3">
+              📊
+            </span>
+            Quick Stats
+          </h4>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-white/5 p-3 rounded-xl border border-white/10 text-center">
+              <div className="text-2xl font-bold text-blue-400">6</div>
+              <div className="text-xs text-white/60">Available Games</div>
             </div>
-            <div>
-              <h5 className="font-medium text-white mb-1">Fast Performance</h5>
-              <p className="text-sm text-gray-400">Optimized React components for smooth gameplay</p>
+            <div className="bg-white/5 p-3 rounded-xl border border-white/10 text-center">
+              <div className="text-2xl font-bold text-green-400">4</div>
+              <div className="text-xs text-white/60">Coming Soon</div>
             </div>
-          </div>
-          <div className="flex items-start">
-            <div className="bg-purple-600 p-2 rounded mr-3 flex-shrink-0">
-              <FaPalette className="text-white text-sm" />
+            <div className="bg-white/5 p-3 rounded-xl border border-white/10 text-center">
+              <div className="text-2xl font-bold text-purple-400">100%</div>
+              <div className="text-xs text-white/60">Free to Play</div>
             </div>
-            <div>
-              <h5 className="font-medium text-white mb-1">Clean Design</h5>
-              <p className="text-sm text-gray-400">Minimalist interface focused on gameplay</p>
-            </div>
-          </div>
-          <div className="flex items-start">
-            <div className="bg-green-600 p-2 rounded mr-3 flex-shrink-0">
-              <FaMobile className="text-white text-sm" />
-            </div>
-            <div>
-              <h5 className="font-medium text-white mb-1">Responsive</h5>
-              <p className="text-sm text-gray-400">Works perfectly on desktop and mobile devices</p>
+            <div className="bg-white/5 p-3 rounded-xl border border-white/10 text-center">
+              <div className="text-2xl font-bold text-orange-400">0</div>
+              <div className="text-xs text-white/60">Ads</div>
             </div>
           </div>
         </div>
