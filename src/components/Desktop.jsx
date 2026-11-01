@@ -39,6 +39,12 @@ import RecycleBinContent from './RecycleBinContent'
 import WorksContent from './WorksContent'
 // Terminal component
 import Terminal from './Terminal'
+// System Monitor component
+import SystemMonitor from './SystemMonitor'
+// System enhancements
+import SystemUptime from './SystemUptime'
+import PerformanceChart from './PerformanceChart'
+import QuickActions from './QuickActions'
 // Project data
 import { frontendProjects, fullstackProjects, projects } from '../data/projects'
 // Wallpaper data
@@ -68,73 +74,26 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
 
                         {/* Creative System Overview */}
                         <div className="mt-4 lg:mt-6 space-y-6">
-                            {/* System Status Dashboard */}
-                            <div className="glass-panel p-5 lg:p-6 rounded-2xl">
-                                <div className="flex items-center justify-between mb-5">
-                                    <h4 className="text-lg lg:text-xl font-bold text-white flex items-center">
-                                        <AiOutlineThunderbolt className="text-2xl mr-3 text-blue-400" />
-                                        System Performance
-                                    </h4>
-                                    <div className="flex items-center text-white/80">
-                                        <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
-                                        <span className="text-xs lg:text-sm">Online</span>
-                                    </div>
-                                </div>
+                            {/* System Status Dashboard - Now with Live Updates */}
+                            <SystemMonitor />
 
-                                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                                    <div className="text-center">
-                                        <div className="flex justify-center mb-3">
-                                            <div className="w-14 h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-                                                <BsCpu className="text-white text-2xl lg:text-3xl" />
-                                            </div>
-                                        </div>
-                                        <div className="text-xs lg:text-sm text-white/70 mb-1">CPU Usage</div>
-                                        <div className="text-xl lg:text-2xl font-bold text-white">23%</div>
-                                        <div className="w-full bg-white/10 rounded-full h-2 mt-2">
-                                            <div className="bg-gradient-to-r from-blue-400 to-blue-500 h-2 rounded-full" style={{ width: '23%' }}></div>
-                                        </div>
-                                    </div>
-
-                                    <div className="text-center">
-                                        <div className="flex justify-center mb-3">
-                                            <div className="w-14 h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg">
-                                                <FaMemory className="text-white text-2xl lg:text-3xl" />
-                                            </div>
-                                        </div>
-                                        <div className="text-xs lg:text-sm text-white/70 mb-1">Memory</div>
-                                        <div className="text-xl lg:text-2xl font-bold text-white">67%</div>
-                                        <div className="w-full bg-white/10 rounded-full h-2 mt-2">
-                                            <div className="bg-gradient-to-r from-green-400 to-green-500 h-2 rounded-full" style={{ width: '67%' }}></div>
-                                        </div>
-                                    </div>
-
-                                    <div className="text-center">
-                                        <div className="flex justify-center mb-3">
-                                            <div className="w-14 h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                                                <FaHdd className="text-white text-2xl lg:text-3xl" />
-                                            </div>
-                                        </div>
-                                        <div className="text-xs lg:text-sm text-white/70 mb-1">Storage</div>
-                                        <div className="text-xl lg:text-2xl font-bold text-white">45%</div>
-                                        <div className="w-full bg-white/10 rounded-full h-2 mt-2">
-                                            <div className="bg-gradient-to-r from-purple-400 to-purple-500 h-2 rounded-full" style={{ width: '45%' }}></div>
-                                        </div>
-                                    </div>
-
-                                    <div className="text-center">
-                                        <div className="flex justify-center mb-3">
-                                            <div className="w-14 h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
-                                                <FaNetworkWired className="text-white text-2xl lg:text-3xl" />
-                                            </div>
-                                        </div>
-                                        <div className="text-xs lg:text-sm text-white/70 mb-1">Network</div>
-                                        <div className="text-xl lg:text-2xl font-bold text-white">89%</div>
-                                        <div className="w-full bg-white/10 rounded-full h-2 mt-2">
-                                            <div className="bg-gradient-to-r from-orange-400 to-orange-500 h-2 rounded-full" style={{ width: '89%' }}></div>
-                                        </div>
-                                    </div>
-                                </div>
+                            {/* System Uptime & Performance Charts */}
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                                <SystemUptime />
+                                <PerformanceChart 
+                                    label="CPU Activity" 
+                                    color="#3b82f6" 
+                                    gradient="from-blue-500/10 to-blue-600/5"
+                                />
+                                <PerformanceChart 
+                                    label="Memory Usage" 
+                                    color="#10b981" 
+                                    gradient="from-green-500/10 to-green-600/5"
+                                />
                             </div>
+
+                            {/* Quick Actions */}
+                            <QuickActions />
 
                             {/* System Specifications */}
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -405,11 +364,11 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                         {/* Stats & Quick Info */}
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                             <div className="glass-panel p-4 rounded-2xl border border-white/10 text-center">
-                                <div className="text-2xl lg:text-3xl font-bold text-blue-400 mb-1">1.9+</div>
+                                <div className="text-2xl lg:text-3xl font-bold text-blue-400 mb-1">2.6+</div>
                                 <div className="text-xs lg:text-sm text-white/70">Years Experience</div>
                             </div>
                             <div className="glass-panel p-4 rounded-2xl border border-white/10 text-center">
-                                <div className="text-2xl lg:text-3xl font-bold text-green-400 mb-1">20+</div>
+                                <div className="text-2xl lg:text-3xl font-bold text-green-400 mb-1">30+</div>
                                 <div className="text-xs lg:text-sm text-white/70">Projects Completed</div>
                             </div>
                             <div className="glass-panel p-4 rounded-2xl border border-white/10 text-center">

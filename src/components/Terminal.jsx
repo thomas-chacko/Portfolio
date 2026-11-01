@@ -57,7 +57,7 @@ const Terminal = () => {
                 'React.js, JavaScript, and modern web technologies.',
                 '',
                 'Location: Kochi, Kerala, India',
-                'Experience: 2 years',
+                'Experience: 2.6+ years',
                 ''
             ]
         },
