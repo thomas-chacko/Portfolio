@@ -45,6 +45,10 @@ import SystemMonitor from './SystemMonitor'
 import SystemUptime from './SystemUptime'
 import PerformanceChart from './PerformanceChart'
 import QuickActions from './QuickActions'
+// Profile enhancements
+import Timeline from './Timeline'
+import TechStack from './TechStack'
+import AvailabilityBadge from './AvailabilityBadge'
 // Project data
 import { frontendProjects, fullstackProjects, projects } from '../data/projects'
 // Wallpaper data
@@ -315,10 +319,41 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                     <div className="p-4 lg:p-6">
                         {/* Hero Section */}
                         <div className="relative glass-panel rounded-2xl p-6 lg:p-8 mb-6 overflow-hidden">
+                            {/* Social Media Icons - Top Right */}
+                            <div className="absolute top-4 right-4 flex gap-2 z-20">
+                                <a
+                                    href="https://www.linkedin.com/in/thomas-chacko-7003a9283"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-xl flex items-center justify-center transition-all cursor-pointer border border-white/20"
+                                    title="LinkedIn"
+                                >
+                                    <FaLinkedin className="text-white text-lg" />
+                                </a>
+                                <a
+                                    href="https://github.com/thomas-chacko"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-xl flex items-center justify-center transition-all cursor-pointer border border-white/20"
+                                    title="GitHub"
+                                >
+                                    <FaGithub className="text-white text-lg" />
+                                </a>
+                                <a
+                                    href="https://www.instagram.com/thomaschacko.in"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-xl flex items-center justify-center transition-all cursor-pointer border border-white/20"
+                                    title="Instagram"
+                                >
+                                    <FaInstagram className="text-white text-lg" />
+                                </a>
+                            </div>
+
                             <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                             <div className="relative z-10 flex flex-col lg:flex-row items-center lg:items-start gap-6">
-                                <div className="relative">
-                                    <div className="w-32 h-32 lg:w-44 lg:h-44 rounded-full overflow-hidden border-4 border-white shadow-2xl">
+                                <div className="relative flex-shrink-0">
+                                    <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                                         <img
                                             src={me}
                                             alt="Thomas Chacko"
@@ -326,23 +361,21 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                                             loading='lazy'
                                         />
                                     </div>
-                                    {/* <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
-                                        <div className="w-3 h-3 bg-white rounded-full"></div>
-                                    </div> */}
                                 </div>
                                 <div className="flex-1 text-center lg:text-left">
                                     <h1 className="text-3xl lg:text-4xl font-bold text-white mb-2">
                                         Thomas Chacko
                                     </h1>
-                                    <p className="text-xl lg:text-2xl text-white/90 mb-4 flex items-center justify-center lg:justify-start">
+                                    <p className="text-xl lg:text-2xl text-white/90 mb-3 flex items-center justify-center lg:justify-start">
                                         <HiSparkles className="mr-2" />
                                         Front-End Developer
                                     </p>
-                                    <p className="text-white/80 text-sm lg:text-base leading-relaxed mb-6">
+                                    <p className="text-white/80 text-sm lg:text-base leading-relaxed mb-4">
                                         Crafting digital experiences that blend creativity with functionality.
                                         Passionate about turning complex problems into simple, beautiful solutions.
                                     </p>
-                                    <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+                                    <div className="flex flex-wrap justify-center lg:justify-start gap-3 items-center">
+                                        <AvailabilityBadge />
                                         <a
                                             href={resumePdf}
                                             download="Thomaschacko.pdf"
@@ -444,6 +477,12 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                             </div>
                         </div>
 
+                        {/* Timeline */}
+                        <Timeline />
+
+                        {/* Tech Stack */}
+                        <TechStack />
+
                         {/* Services & Specializations */}
                         <div className="glass-panel p-6 rounded-2xl border border-white/10 mb-6">
                             <h3 className="text-xl font-bold text-white mb-6 flex items-center">
@@ -495,62 +534,64 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
                                 <FaPhone className="text-2xl mr-3 text-green-400" />
                                 Let's Connect
                             </h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-4">
-                                    <div className="flex items-center">
-                                        <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mr-4">
-                                            <MdEmail className="text-white text-lg" />
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                {/* Left side - Contact info */}
+                                <div className="space-y-6">
+                                    <div className="flex items-start gap-4">
+                                        <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                            <MdEmail className="text-white text-xl" />
                                         </div>
                                         <div>
-                                            <div className="text-sm text-white/60">Email</div>
-                                            <div className="text-white">thomaschacko180@gmail.com</div>
+                                            <div className="text-sm text-white/60 mb-1">Email</div>
+                                            <div className="text-white font-medium">thomaschacko180@gmail.com</div>
                                         </div>
                                     </div>
-                                    <div className="flex items-center">
-                                        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
-                                            <MdPhone className="text-white text-lg" />
+                                    <div className="flex items-start gap-4">
+                                        <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                                            <MdPhone className="text-white text-xl" />
                                         </div>
                                         <div>
-                                            <div className="text-sm text-white/60">Phone</div>
-                                            <div className="text-white">+91 8330811956</div>
+                                            <div className="text-sm text-white/60 mb-1">Phone</div>
+                                            <div className="text-white font-medium">+91 8330811956</div>
                                         </div>
                                     </div>
-                                    <div className="flex items-center">
-                                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
-                                            <MdLocationOn className="text-white text-lg" />
+                                    <div className="flex items-start gap-4">
+                                        <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                                            <MdLocationOn className="text-white text-xl" />
                                         </div>
                                         <div>
-                                            <div className="text-sm text-white/60">Location</div>
-                                            <div className="text-white">Kochi, Kerala</div>
+                                            <div className="text-sm text-white/60 mb-1">Location</div>
+                                            <div className="text-white font-medium">Kochi, Kerala</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div>
+                                {/* Right side - Social media at bottom */}
+                                <div className="flex flex-col justify-end items-end">
                                     <div className="text-sm text-white/60 mb-4">Follow me on social media</div>
-                                    <div className="flex flex-wrap gap-3">
+                                    <div className="flex gap-3">
                                         <a
                                             href="https://www.linkedin.com/in/thomas-chacko-7003a9283"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="bg-white/5 cursor-pointer hover:bg-white/10 text-white px-4 py-2 rounded-xl transition-colors flex items-center border border-white/10"
+                                            className="bg-white/5 cursor-pointer hover:bg-white/10 text-white px-5 py-3 rounded-xl transition-colors flex items-center gap-2 border border-white/10"
                                         >
-                                            <FaLinkedin className="mr-2" /> LinkedIn
+                                            <FaLinkedin className="text-lg" /> LinkedIn
                                         </a>
                                         <a
                                             href="https://github.com/thomas-chacko"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="bg-white/5 cursor-pointer hover:bg-white/10 text-white px-4 py-2 rounded-xl transition-colors flex items-center border border-white/10"
+                                            className="bg-white/5 cursor-pointer hover:bg-white/10 text-white px-5 py-3 rounded-xl transition-colors flex items-center gap-2 border border-white/10"
                                         >
-                                            <FaGithub className="mr-2" /> GitHub
+                                            <FaGithub className="text-lg" /> GitHub
                                         </a>
                                         <a
                                             href="https://www.instagram.com/thomaschacko.in"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="bg-white/5 hover:bg-white/10 text-white px-4 py-2 rounded-xl transition-colors flex items-center cursor-pointer border border-white/10"
+                                            className="bg-white/5 hover:bg-white/10 text-white px-5 py-3 rounded-xl transition-colors flex items-center gap-2 cursor-pointer border border-white/10"
                                         >
-                                            <FaInstagram className="mr-2" /> Instagram
+                                            <FaInstagram className="text-lg" /> Instagram
                                         </a>
                                     </div>
                                 </div>
