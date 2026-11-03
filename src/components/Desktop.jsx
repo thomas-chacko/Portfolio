@@ -935,7 +935,7 @@ const Desktop = ({ onOpenWindow, onChangeWallpaper, onChangeTheme, currentTheme 
         },
         {
             id: 'recycle-bin',
-            name: 'Recycle Bin',
+            name: 'Recycle',
             icon: recycleBinIcon,
             content: {
                 title: 'Recycle',
